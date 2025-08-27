@@ -7,4 +7,4 @@ export const NotePorvider=({children})=>{
     const deleteNote=(i)=>{}
     <NoteContext.Provider value={{addNote(),delete()}}>{children}</NoteContext.Provider>
 }
-                          export default NoteContext;
+export default NoteContext;

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import NoteAppComponent from './NoteApp/NoteAppComponent'
 
 function App() {
