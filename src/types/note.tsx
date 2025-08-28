@@ -1,7 +1,7 @@
 export interface Note{
     id: string;
     title: string;
-    price: double;
+    price: number;
     available:false;
     createAt:Date;
 }
