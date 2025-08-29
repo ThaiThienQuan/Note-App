@@ -19,7 +19,7 @@ export default function NoteAppComponent() {
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const addNote = () => {
+  const addNote = () => {bjdsfjdsfkhg
     setnote([newnote, ...note]);
     setnewnote({ name: "", email: "", checked: false });
   };
