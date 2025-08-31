@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Note } from "../types/note";
 import NoteForm from "../Components/NoteForm";
 import NoteList from "../Components/NoteList";
+import { NotePorvider } from "../Components/NoteContext";
 export default function NoteAppComponent() {
   const [notes, setnote] = useState<Note[]>(() => {
     const save = localStorage.getItem("notes");
@@ -20,16 +21,17 @@ export default function NoteAppComponent() {
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const addNote = () => {
-    setnote([newnote, ...notes]);
-    setnewnote({ name: "", email: "", checked: false });
+  const addNote = (note:Note) => {
+    setnote([note, ...notes]);
   };
-  const deleteNote = (index) => {
-    setnote(notes.filter((i) => i.id !== index.id));
+  const deleteNote = (id: string) => {
+    setnote(notes.filter((i) => i.id !== id));
   };
   return (
     <>
-      <div className="">
+       <div className="p-5 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">📒 Note App</h1>
+      
         <NoteForm />
         <NoteList />
       </div>
