@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Note } from "../types/note";
 import NoteForm from "../Components/NoteForm";
 import NoteList from "../Components/NoteList";
 export default function NoteAppComponent() {
-  const [note, setnote] = useState<Note[]>(() => {
+  const [notes, setnote] = useState<Note[]>(() => {
     const save = localStorage.getItem("notes");
     return save ? JSON.parse(save) : [];
   });
@@ -12,6 +12,7 @@ export default function NoteAppComponent() {
     email: "",
     checked: false,
   });
+  useEffect(() => {localStorage.setItem("notes",JSON.stringify(notes))}, [notes]);
   const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;
     setnewnote((prev) => ({
@@ -20,11 +21,11 @@ export default function NoteAppComponent() {
     }));
   }, []);
   const addNote = () => {
-    setnote([newnote, ...note]);
+    setnote([newnote, ...notes]);
     setnewnote({ name: "", email: "", checked: false });
   };
-  const deleteNote =(index)=>{
-    setnote(note.filter((i)=>i.id!==index.id))
+  const deleteNote = (index) => {
+    setnote(notes.filter((i) => i.id !== index.id));
   };
   return (
     <>
