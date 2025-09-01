@@ -5,10 +5,8 @@ import NoteAppComponent from './NoteApp/NoteAppComponent'
 function App() {
 
   return (
-    <>
-    <NotePorvider>
+    <> 
     <NoteAppComponent/>
-    </NotePorvider>
     </>
   )
 }
