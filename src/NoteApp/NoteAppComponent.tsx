@@ -12,14 +12,14 @@ export default function NoteAppComponent() {
   }, [notes]);
   const addNote = useCallback((note: Note) => {
     setnote([note, ...notes]);
-  },[]);
+  }, []);
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
-  },[]);
+  }, []);
   return (
     <>
-      <div className="p-5 max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">📒 Note App</h1>
+      <div className={`p-5 max-w-3xl mx-auto`}>
+        <h1 className={`text-2xl font-bold mb-4`}>📒 Note App</h1>
         <NoteForm />
         <NoteList />
       </div>

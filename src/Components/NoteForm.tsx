@@ -1,40 +1,51 @@
 import { useCallback, useState } from "react";
-
+import type { Note } from "../types/note";
+interface Props {
+  addNote: (note: Note) => void;
+}
 export default function NoteForm() {
-  const [note, setnote] = useState([]);
-  const [newnote, setnewnote] = useState({
-    name: "",
-    email: "",
-    checked: false,
+  const [title_content, settitle_content] = useState({
+    title: "",
+    content: "",
+    available: false,
   });
   const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;
-    setnewnote((prev) => ({
+    settitle_content((prev) => ({
       ...prev,
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
   const addNote = () => {
-    setnote([newnote,...note]);
-    setnewnote({name: '', email: '',checked:false})
+    setnote([newnote, ...note]);
+    setnewnote({ name: "", email: "", checked: false });
   };
   return (
     <>
-      <div className="">
+      <form onSubmit={handleSubmit} className="">
         <input
+        className={`border`}
           type="text"
-          value={newnote.name}
+          value={title_content.title}
           placeholder="Name here"
-          name="name"
+          name="title"
           onChange={handleChange}
         />
+        <textarea
+          value={title_content.content}
+          placeholder="Content"
+          onChange={handleChange}
+          name="content"
+          id=""
+        ></textarea>
         <input
           type="checkbox"
-          name="checked"
-          checked={newnote.checked}
+          name="available"
+          checked={title_content.available}
           onChange={handleChange}
         />
-      </div>
+        <button className={``}> Add Note</button>
+      </form>
     </>
   );
 }
