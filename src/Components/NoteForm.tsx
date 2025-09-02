@@ -24,7 +24,7 @@ export default function NoteForm() {
     <>
       <form onSubmit={handleSubmit} className="">
         <input
-        className={`border`}
+          className={`p-2 mb-3 border`}
           type="text"
           value={title_content.title}
           placeholder="Name here"
@@ -36,15 +36,18 @@ export default function NoteForm() {
           placeholder="Content"
           onChange={handleChange}
           name="content"
-          id=""
+          className={`p-2 mb-3 border`}
         ></textarea>
         <input
           type="checkbox"
           name="available"
           checked={title_content.available}
           onChange={handleChange}
+          className={`p-2 mb-3 border`}
         />
-        <button className={``}> Add Note</button>
+        <button className={`bg-primary text-light border rounded`}>
+          Add Note
+        </button>
       </form>
     </>
   );
