@@ -3,7 +3,7 @@ import type { Note } from "../types/note";
 interface Props {
   addNote: (note: Note) => void;
 }
-export default function NoteForm() {
+export default function NoteForm({ addNote }: Props) {
   const [title_content, settitle_content] = useState({
     title: "",
     content: "",
@@ -16,10 +16,21 @@ export default function NoteForm() {
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const addNote = () => {
-    setnote([newnote, ...note]);
-    setnewnote({ name: "", email: "", checked: false });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title_content.title.trim() || !title_content.content.trim()) return;
+
+    const newNote: Note = {
+      id: uuidv4(),
+      title,
+      content,
+      available: false,
+      createAt: new Date(),
+    };
+    addNote(newNote);
+    settitle_content({ title: "", content: "", available: false });
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="">
