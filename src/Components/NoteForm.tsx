@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import type { Note } from "../types/note";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
+ 
   addNote: (note: Note) => void;
 }
 export default function NoteForm({ addNote }: Props) {
