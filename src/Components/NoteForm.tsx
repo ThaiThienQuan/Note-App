@@ -46,6 +46,7 @@ export default function NoteForm({ addNote }: Props) {
           name="title"
           onChange={handleChange}
         />
+        <br />
         <textarea
           value={dataform.content}
           placeholder="Content"
@@ -53,20 +54,23 @@ export default function NoteForm({ addNote }: Props) {
           name="content"
           className={`p-2 mb-3 border`}
         ></textarea>
+        <br />
         <input
-          type="number"
-          name="number"
+          type="text"
+          name="price"
           value={dataform.price}
           onChange={handleChange}
           className={`p-2 mb-3 border`}
         />
+        <br />
         <input
           type="checkbox"
           name="available"
           checked={dataform.available}
           onChange={handleChange}
           className={`p-2 mb-3 border`}
-        />
+        /> Available for sale?
+        <br />
         <button className={`bg-primary text-light border rounded`}>
           Add Note
         </button>

@@ -16,6 +16,9 @@ export default function NoteAppComponent() {
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
   }, []);
+  const filterNote=()=>{
+    
+  }
   return (
     <>
       <div className={`p-5 max-w-3xl mx-auto`}>

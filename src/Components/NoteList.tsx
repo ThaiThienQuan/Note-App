@@ -8,8 +8,8 @@ interface Props {
 export default function NoteList({ notes, deleteNote }: Props) {
   return (
     <div>
-      {notes.length === 0 ? (
-        <p>No notes yet...</p>
+      {notes.length == 0 ? (
+        <p>No notes yet</p>
       ) : (
         notes.map((note) => (
           <div
@@ -18,14 +18,16 @@ export default function NoteList({ notes, deleteNote }: Props) {
           >
             <h2 className="font-bold">{note.title}</h2>
             <p>{note.content}</p>
-            <small>{new Date(note.createAt).toLocaleString()}</small>
-            <br />
+            <p>{note.price}</p>
+            <strong>
+              <small>{new Date(note.createAt).toString()}</small>
+            </strong>
             <button
-              onClick={() => deleteNote(note.id)}
+              onClick={() => {
+                deleteNote(note.id);
+              }}
               className="text-red-500 mt-2"
-            >
-              Delete
-            </button>
+            >Delete</button>
           </div>
         ))
       )}
