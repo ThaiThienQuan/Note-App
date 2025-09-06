@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Note } from "../types/note";
 import NoteForm from "../Components/NoteForm";
 import NoteList from "../Components/NoteList";
@@ -7,6 +7,7 @@ export default function NoteAppComponent() {
     const save = localStorage.getItem("notes");
     return save ? JSON.parse(save) : [];
   });
+  const [search, setsearch] = useState("");
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
@@ -16,15 +17,28 @@ export default function NoteAppComponent() {
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
   }, []);
-  const filterNote=()=>{
-    
-  }
+  const filterNote = useMemo(() => {
+    return notes.filter((i) =>
+      `
+    ${i.id} 
+    ${i.title} 
+    ${i.content} 
+    ${i.price} 
+    ${i.available ? "Saved" : "Not save"} 
+    ${i.createAt} 
+    `.includes(search.toLowerCase())
+    );
+  }, [search, notes]);
   return (
     <>
       <div className={`p-5 max-w-3xl mx-auto`}>
         <h1 className={`text-2xl font-bold mb-4`}>📒 Note App</h1>
-        <NoteForm addNote={addNote}/>
-        <NoteList notes={notes} deleteNote={deleteNote}/>
+        <NoteForm addNote={addNote} search={search} setsearch={setsearch}/>
+        <NoteList
+          notes={notes}
+          filterNote={filterNote}
+          deleteNote={deleteNote}
+        />
       </div>
     </>
   );

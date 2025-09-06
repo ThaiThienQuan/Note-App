@@ -2,16 +2,20 @@ import { useCallback, useState } from "react";
 import type { Note } from "../types/note";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
- 
+  search: "";
+  setsearch:()=>void
   addNote: (note: Note) => void;
 }
-export default function NoteForm({ addNote }: Props) {
+export default function NoteForm({ addNote, search ,setsearch}: Props) {
   const [dataform, setdataform] = useState({
     title: "",
     content: "",
     price: 0,
     available: false,
   });
+  const handleSearch=(e)=>{
+    setsearch(e.target.value);
+  }
   const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;
     setdataform((prev) => ({
@@ -37,7 +41,16 @@ export default function NoteForm({ addNote }: Props) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="">
+    <input
+          className={`p-2 mb-3 border`}
+          type="text"
+          value={search}
+          placeholder="Search here"
+          onChange={handleSearch}
+        />
+      <form onSubmit={handleSubmit} className="mb-4">
+        
+        <br />
         <input
           className={`p-2 mb-3 border`}
           type="text"
@@ -69,9 +82,10 @@ export default function NoteForm({ addNote }: Props) {
           checked={dataform.available}
           onChange={handleChange}
           className={`p-2 mb-3 border`}
-        /> Available for sale?
+        />{" "}
+        Available for sale?
         <br />
-        <button className={`bg-primary text-light border rounded`}>
+        <button className={`bg-primary text-light p-2 border rounded`}>
           Add Note
         </button>
       </form>
