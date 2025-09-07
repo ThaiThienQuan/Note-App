@@ -1,21 +1,21 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { Note } from "../types/note";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
-  search: "";
-  setsearch:()=>void
+  search: string;
+  setsearch: React.Dispatch<React.SetStateAction<string>>;
   addNote: (note: Note) => void;
 }
-export default function NoteForm({ addNote, search ,setsearch}: Props) {
+export default function NoteForm({ addNote, search, setsearch }: Props) {
   const [dataform, setdataform] = useState({
     title: "",
     content: "",
     price: 0,
     available: false,
   });
-  const handleSearch=(e)=>{
+  const handleSearch = useCallback((e) => {
     setsearch(e.target.value);
-  }
+  }, []);
   const handleChange = useCallback((e) => {
     const { name, value, type, checked } = e.target;
     setdataform((prev) => ({
@@ -23,7 +23,7 @@ export default function NoteForm({ addNote, search ,setsearch}: Props) {
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!dataform.title.trim() || !dataform.content.trim()) return;
 
@@ -37,19 +37,19 @@ export default function NoteForm({ addNote, search ,setsearch}: Props) {
     };
     addNote(newNote);
     setdataform({ title: "", content: "", price: 0, available: false });
-  }, []);
+  };
+  const hadn=()=>{};
 
   return (
     <>
-    <input
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
           className={`p-2 mb-3 border`}
           type="text"
           value={search}
           placeholder="Search here"
           onChange={handleSearch}
         />
-      <form onSubmit={handleSubmit} className="mb-4">
-        
         <br />
         <input
           className={`p-2 mb-3 border`}
