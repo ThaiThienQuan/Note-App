@@ -1,12 +1,14 @@
-import NoteAppComponent from './NoteApp/NoteAppComponent'
+import { ThemeProvider } from "./Components/ThemeContext";
+import NoteAppComponent from "./NoteApp/NoteAppComponent";
 
 function App() {
-
   return (
-    <> 
-    <NoteAppComponent/>
+    <>
+      <ThemeProvider>
+        <NoteAppComponent />
+      </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

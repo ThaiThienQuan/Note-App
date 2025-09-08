@@ -38,7 +38,6 @@ export default function NoteForm({ addNote, search, setsearch }: Props) {
     addNote(newNote);
     setdataform({ title: "", content: "", price: 0, available: false });
   };
-  const hadn=()=>{};
 
   return (
     <>
