@@ -3,6 +3,7 @@ import type { Note } from "../types/note";
 interface Props {
   notes: Note[];
   deleteNote: (id: string) => void;
+  updateNote:(id:string, updateNote:Note)=>void;
   filterNote: Note[];
 
 }
