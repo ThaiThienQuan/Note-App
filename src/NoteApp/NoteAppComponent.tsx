@@ -19,7 +19,9 @@ export default function NoteAppComponent() {
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
   }, []);
-  const updateNote=()=>{}
+  const updateNote = (id: string, updateNote: Note) => {
+    setnote(notes.map((note) => (note.id == id ? updateNote : note)));
+  };
   const filterNote = useMemo(() => {
     return notes.filter((i) =>
       `
@@ -46,7 +48,9 @@ export default function NoteAppComponent() {
         <NoteList
           notes={notes}
           filterNote={filterNote}
-          deleteNote={deleteNote} updateNote={}        />
+          deleteNote={deleteNote}
+          updateNote={updateNote}
+        />
       </div>
     </>
   );
