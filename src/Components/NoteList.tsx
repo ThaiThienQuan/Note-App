@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { Note } from "../types/note";
 
 interface Props {
@@ -10,8 +10,19 @@ interface Props {
 
 export default function NoteList({ notes, deleteNote, filterNote }: Props) {
   const [editId, seteditId] = useState<string | null>(null);
-  const [editTitle, seteditTitle] = useState("");
-  const [editContent, seteditContent] = useState("");
+  const [edit, setedit] = useState({
+    title: "",
+    content: "",
+  });
+  const handleChange = useCallback((i) => {
+    const { name, type, checked, value } = i.target;
+    setedit((prev) => ({
+      ...prev,
+      [name]: type == "checkbox" ? checked : value,
+    }));
+  }, []);
+  const handleSave = () => {};
+  const handleEdit = () => {};
   return (
     <div>
       {notes.length == 0 ? (
@@ -23,7 +34,31 @@ export default function NoteList({ notes, deleteNote, filterNote }: Props) {
             className="border p-3 mb-2 rounded shadow-sm bg-gray-50"
           >
             {editId === note.id ? (
-              <></>
+              <>
+                <input
+                  type="text"
+                  value={edit.title}
+                  onChange={handleChange}
+                  className="border p-2 w-full mb-2"
+                />
+                <textarea
+                  value={edit.content}
+                  onChange={handleChange}
+                  className="border p-2 w-full mb-2"
+                />
+                <button
+                  onClick={handleSave(note.id, note)}
+                  className="bg-green-500 text-white px-3 py-1 rounded mr-2"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => seteditId(null)}
+                  className="bg-gray-400 text-white px-3 py-1 rounded"
+                >
+                  Cancel Edit
+                </button>
+              </>
             ) : (
               <>
                 <p>{note.id}</p>
@@ -41,6 +76,14 @@ export default function NoteList({ notes, deleteNote, filterNote }: Props) {
                   className="text-red-500 mt-2"
                 >
                   Delete
+                </button>
+                <button
+                  onClick={() => {
+                    handleEdit(note);
+                  }}
+                  className="text-blue-500 mt-2"
+                >
+                  Edit
                 </button>
               </>
             )}
