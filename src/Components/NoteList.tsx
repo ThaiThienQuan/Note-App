@@ -8,11 +8,13 @@ interface Props {
   filterNote: Note[];
 }
 
-export default function NoteList({ notes, deleteNote, filterNote }: Props) {
+export default function NoteList({ notes, deleteNote, filterNote,updateNote }: Props) {
   const [editId, seteditId] = useState<string | null>(null);
   const [edit, setedit] = useState({
     title: "",
     content: "",
+    price: 0,
+    available: false,
   });
   const handleChange = useCallback((i) => {
     const { name, type, checked, value } = i.target;
@@ -21,8 +23,24 @@ export default function NoteList({ notes, deleteNote, filterNote }: Props) {
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const handleSave = () => {};
-  const handleEdit = () => {};
+  const handleEdit = (note: Note) => {
+    seteditId(note.id);
+    setedit({
+      title: note.title,
+      content: note.content,
+      price: note.price,
+      available: note.available,
+    });
+  };
+  const handleSave = (id: string, oldNote: Note) => {
+    updateNote(id,{
+      ...oldNote,
+      title:edit.title,
+      content:edit.content,
+      price:edit.price,
+      available:edit.available
+    })
+  };
   return (
     <div>
       {notes.length == 0 ? (
@@ -38,14 +56,34 @@ export default function NoteList({ notes, deleteNote, filterNote }: Props) {
                 <input
                   type="text"
                   value={edit.title}
+                  name="title"
                   onChange={handleChange}
                   className="border p-2 w-full mb-2"
                 />
+                <br />
                 <textarea
+                  name="content"
                   value={edit.content}
                   onChange={handleChange}
                   className="border p-2 w-full mb-2"
                 />
+                <br />
+                <input
+                  type="text"
+                  name="price"
+                  value={edit.price}
+                  onChange={handleChange}
+                  className={`p-2 mb-3 border`}
+                />
+                <br />
+                <input
+                  type="checkbox"
+                  name="available"
+                  checked={edit.available}
+                  onChange={handleChange}
+                  className={`p-2 mb-3 border`}
+                />
+                <br />
                 <button
                   onClick={handleSave(note.id, note)}
                   className="bg-green-500 text-white px-3 py-1 rounded mr-2"
