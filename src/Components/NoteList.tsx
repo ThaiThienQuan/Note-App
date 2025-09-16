@@ -37,8 +37,7 @@ export default function NoteList({ notes, deleteNote, filterNote,updateNote }: P
       ...oldNote,
       title:edit.title,
       content:edit.content,
-      price:edit.price,
-      available:edit.available
+      price:edit.price
     })
   };
   return (
