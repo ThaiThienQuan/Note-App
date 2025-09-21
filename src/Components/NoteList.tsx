@@ -8,7 +8,12 @@ interface Props {
   filterNote: Note[];
 }
 
-export default function NoteList({ notes, deleteNote, filterNote,updateNote }: Props) {
+export default function NoteList({
+  notes,
+  deleteNote,
+  filterNote,
+  updateNote,
+}: Props) {
   const [editId, seteditId] = useState<string | null>(null);
   const [edit, setedit] = useState({
     title: "",
@@ -23,22 +28,17 @@ export default function NoteList({ notes, deleteNote, filterNote,updateNote }: P
       [name]: type == "checkbox" ? checked : value,
     }));
   }, []);
-  const handleEdit = (note: Note) => {
-    seteditId(note.id);
-    setedit({
-      title: note.title,
-      content: note.content,
-      price: note.price,
-      available: note.available,
-    });
+  const handleEdit = (id) => {
+    const editnote = notes.find((prev) => prev.id === id);
+    if (editnote) setdataform({ ...editnote });
   };
   const handleSave = (id: string, oldNote: Note) => {
-    updateNote(id,{
+    updateNote(id, {
       ...oldNote,
-      title:edit.title,
-      content:edit.content,
-      price:edit.price
-    })
+      title: edit.title,
+      content: edit.content,
+      price: edit.price,
+    });
   };
   return (
     <div>
@@ -116,7 +116,7 @@ export default function NoteList({ notes, deleteNote, filterNote,updateNote }: P
                 </button>
                 <button
                   onClick={() => {
-                    handleEdit(note);
+                    handleEdit(id);
                   }}
                   className="text-blue-500 mt-2"
                 >

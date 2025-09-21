@@ -15,10 +15,7 @@ export default function NoteForm({ addNote, search, setsearch , notes,setnote}: 
     price: 0,
     available: false,
   });
-  const editNote=(id)=>{
-const editnote=notes.find((prev)=>prev.id===id);
-if(editnote)setdataform({...editnote})
-  }
+  
   const handleSearch = useCallback((e) => {
     setsearch(e.target.value);
   }, []);
