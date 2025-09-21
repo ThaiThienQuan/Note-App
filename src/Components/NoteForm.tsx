@@ -2,19 +2,22 @@ import { useCallback, useMemo, useState } from "react";
 import type { Note } from "../types/note";
 import { v4 as uuidv4 } from "uuid";
 interface Props {
+  notes: Note[];
   search: string;
   setsearch: React.Dispatch<React.SetStateAction<string>>;
+  setnote: React.Dispatch<React.SetStateAction<string>>;
   addNote: (note: Note) => void;
 }
-export default function NoteForm({ addNote, search, setsearch , }: Props) {
+export default function NoteForm({ addNote, search, setsearch , notes,setnote}: Props) {
   const [dataform, setdataform] = useState({
     title: "",
     content: "",
     price: 0,
     available: false,
   });
-  const editNote=(editnote)=>{
-setdataform(dataform.)
+  const editNote=(id)=>{
+const editnote=notes.find((prev)=>prev.id===id);
+if(editnote)setdataform({...editnote})
   }
   const handleSearch = useCallback((e) => {
     setsearch(e.target.value);

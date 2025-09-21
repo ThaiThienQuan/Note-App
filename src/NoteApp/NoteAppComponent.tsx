@@ -19,12 +19,9 @@ export default function NoteAppComponent() {
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
   }, []);
-  const editNote=(id)=>{
-const editnote=notes.find((prev)=>prev.id===id);
-if(editnote)set
-  }
-  const updateNote = useCallback((id: string, updateNote: Note) => {
-    setnote(notes.map((note) => (note.id == id ? updateNote : note)));
+  
+  const updateNote = useCallback((id: string) => {
+    setnote(notes.map((note) => (note.id == id ? {...dataform} : note)));
   },[]);
   const filterNote = useMemo(() => {
     return notes.filter((i) =>
@@ -48,7 +45,7 @@ if(editnote)set
         <button onClick={themeHandle}>{theme}</button>
         <h1 className={`text-2xl font-bold mb-4`}>📒 Note App</h1>
 
-        <NoteForm addNote={addNote} search={search} setsearch={setsearch} />
+        <NoteForm addNote={addNote} search={search} setsearch={setsearch} setnote={setnote} notes={notes} />
         <NoteList
           notes={notes}
           filterNote={filterNote}
