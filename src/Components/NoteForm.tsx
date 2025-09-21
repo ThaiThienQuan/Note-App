@@ -6,13 +6,16 @@ interface Props {
   setsearch: React.Dispatch<React.SetStateAction<string>>;
   addNote: (note: Note) => void;
 }
-export default function NoteForm({ addNote, search, setsearch }: Props) {
+export default function NoteForm({ addNote, search, setsearch , }: Props) {
   const [dataform, setdataform] = useState({
     title: "",
     content: "",
     price: 0,
     available: false,
   });
+  const editNote=(editnote)=>{
+setdataform(dataform.)
+  }
   const handleSearch = useCallback((e) => {
     setsearch(e.target.value);
   }, []);

@@ -19,6 +19,10 @@ export default function NoteAppComponent() {
   const deleteNote = useCallback((id: string) => {
     setnote(notes.filter((i) => i.id !== id));
   }, []);
+  const editNote=(id)=>{
+const editnote=notes.find((prev)=>prev.id===id);
+if(editnote)set
+  }
   const updateNote = useCallback((id: string, updateNote: Note) => {
     setnote(notes.map((note) => (note.id == id ? updateNote : note)));
   },[]);
