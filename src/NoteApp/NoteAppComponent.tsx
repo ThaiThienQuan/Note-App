@@ -13,7 +13,7 @@ export default function NoteAppComponent() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
-  const addNote = useCallback((note: Note) => {
+  const addNote = useCallback((note: Note) => {fds
     setnote([note, ...notes]);
   }, []);
   const deleteNote = useCallback((id: string) => {
